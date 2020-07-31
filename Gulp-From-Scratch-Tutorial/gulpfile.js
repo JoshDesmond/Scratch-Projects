@@ -4,11 +4,16 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 
-const styleSource = './src/scss/styles.css';
+// Don't use ./ if you want a watch file to
+// const styleSource = './src/scss/styles.css'; <-- Won't watch for new chanages
+const styleSource = 'src/scss/styles.css';
 const styleDest = './build/css/';
-const jsSource = './src/js/script.js';
+
+const jsSource = 'src/js/script.js';
 const jsDest = './build/js/';
 
+const styleWatch = 'src/scss/**/';
+const scriptWatch = 'src/js/**/';
 
 gulp.task('style', function(done) {
 	gulp.src(styleSource)
@@ -37,7 +42,13 @@ gulp.task('js', function(done) {
 	done();
 });
 
-// Note, in Gulp3, the gulp.series was not used
+
+gulp.task('watch', function() { 
+	gulp.watch(styleWatch, gulp.series('style'));
+	gulp.watch(scriptWatch, gulp.series('js'));
+});
+
+// Note, in Gulp4, the gulp.series or gulp.parallel is now required.
 // Forgetting it can lead to a "Task function must be specified"
 // error
-gulp.task('default',gulp.series(['style', 'js']));
+gulp.task('default', gulp.parallel(['style', 'js']));
