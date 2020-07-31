@@ -3,6 +3,7 @@ const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
+const browserify = require('browserify');
 
 // Don't use ./ if you want a watch file to
 // const styleSource = './src/scss/styles.css'; <-- Won't watch for new chanages
@@ -36,10 +37,22 @@ gulp.task('style', function(done) {
 	**/
 });
 
+/* This is the original js task before concatting &  minifying
 gulp.task('js', function(done) {
 	gulp.src( jsSource)
 		.pipe(gulp.dest(jsDest));
 	done();
+});
+*/
+
+/**
+ * browserify, transform babelify [env], sundle, source,
+ * rename .min, buffer, init sourcemap, uglify, write
+ * sourcemap, dist
+ */
+gulp.task('js', function(done) {
+	browserify();
+
 });
 
 

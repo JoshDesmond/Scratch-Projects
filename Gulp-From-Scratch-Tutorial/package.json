@@ -9,6 +9,7 @@
   "author": "Desmond",
   "license": "GPL-3.0",
   "devDependencies": {
+    "browserify": "^16.5.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-cli": "^2.3.0",
