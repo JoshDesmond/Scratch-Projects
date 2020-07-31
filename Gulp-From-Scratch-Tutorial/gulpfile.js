@@ -6,6 +6,9 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const styleSource = './src/scss/styles.css';
 const styleDest = './build/css/';
+const jsSource = './src/js/script.js';
+const jsDest = './build/js/';
+
 
 gulp.task('style', function(done) {
 	gulp.src(styleSource)
@@ -27,3 +30,14 @@ gulp.task('style', function(done) {
 	 * complete: Did you forget to signal async completion?"
 	**/
 });
+
+gulp.task('js', function(done) {
+	gulp.src( jsSource)
+		.pipe(gulp.dest(jsDest));
+	done();
+});
+
+// Note, in Gulp3, the gulp.series was not used
+// Forgetting it can lead to a "Task function must be specified"
+// error
+gulp.task('default',gulp.series(['style', 'js']));
