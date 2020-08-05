@@ -55,6 +55,7 @@ bin/
 target/
 cmake-build-*/
 out/
+dist/
 
 # Compiled File Types
 *.class
