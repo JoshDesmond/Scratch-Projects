@@ -17,17 +17,15 @@
     "persistent": true
   },
   "options_page": "src/options/index.html",
-  "permissions": [
-    "//*/*"
-  ],
+  "permissions": ["activeTab", "declarativeContent"],
   "content_scripts": [
     {
-      "matches": [
-        "https://www.google.com/*"
-      ],
+      "matches": ["<all_urls>"],
+	  "exclude_matches": ["https://en.wikipedia.org/wiki/Main_Page"],
       "js": [
         "src/inject/inject.js"
       ]
     }
-  ]
+  ],
+  "web_accessible_resources": []
 }
