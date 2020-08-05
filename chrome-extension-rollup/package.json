@@ -1,0 +1,18 @@
+{
+  "name": "template-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "rollup": "^2.23.0",
+    "rollup-plugin-chrome-extension": "^3.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Developer Desmond",
+  "license": "MIT"
+}
