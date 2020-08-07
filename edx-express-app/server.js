@@ -8,15 +8,14 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (request, response) => {
-	response.send("Hello, Word!");
+	response.send("Hello, World!");
 });
 
 app.get('/quotes', (request, response) => {
-	response.send("View a list of all quotes");
 	if (request.query.year) {
-		// Send quotes with year === req.query.year
+		response.send(`Get quotes with year === ${request.query.year}`);
 	} else {
-		// Send all quotes
+	    response.send("Get all quotes, since no year was specified");
 	}
 });
 
