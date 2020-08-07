@@ -14,5 +14,5 @@ chrome.extension.sendMessage({}, function(response) {
 	}, 10);
 });
 
-const model = new Model("My name is Mooodel, still...");
+const model = new Model("My name is Mooodel");
 model.printName();
