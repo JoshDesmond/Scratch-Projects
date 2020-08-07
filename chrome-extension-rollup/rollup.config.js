@@ -7,9 +7,9 @@ import {
 } from 'rollup-plugin-chrome-extension'
 
 export default {
-	input: 'src/manifest.json',
+	input: [ 'app/manifest.json'],
 	output: {
-		dir: 'dist',
+		dir: 'build',
 		format: 'esm',
 	},
 	plugins: [

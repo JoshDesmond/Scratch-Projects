@@ -1,9 +1,4 @@
-// if you checked "fancy-settings" in extensionizr.com, uncomment this lines
-
-// var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
-// });
-
+import Model from "./models/model.js";
 
 //example of using a message handler from the inject scripts
 chrome.extension.onMessage.addListener(
@@ -15,6 +10,8 @@ chrome.extension.onMessage.addListener(
 
 chrome.runtime.onInstalled.addListener(function() {
 	console.log("Hello World!");
+	const model = new Model("blerg");
+	model.printName();
 	//chrome.storage.sync.set({color: '#3aa757'}, function() {
 	//	console.log("The color is green.");
 	//});

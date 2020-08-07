@@ -1,29 +1,29 @@
 {
-  "name": "CHANGE THIS : Extension boilerplate",
+  "name": "TODO",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "This extension was created with the awesome extensionizr.com",
-  "homepage_url": "http://extensionizr.com",
+  "description": "This is a template MVC extension using rollup-plugin-chrome-extension",
+  "homepage_url": "https://joshdesmond.github.io/SmartBlock/website/index.html",
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   },
   "default_locale": "en",
   "background": {
     "scripts": [
-      "bg/background.js"
+      "js/background.js"
     ],
     "persistent": true
   },
-  "options_page": "options/index.html",
+  "options_page": "options.html",
   "permissions": ["activeTab", "declarativeContent"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
 	  "exclude_matches": ["https://en.wikipedia.org/wiki/Main_Page"],
       "js": [
-        "inject/inject.js"
+        "js/inject.js"
       ]
     }
   ]

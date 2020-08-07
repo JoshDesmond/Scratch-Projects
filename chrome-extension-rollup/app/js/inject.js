@@ -1,7 +1,7 @@
-import Model from "./inject_module.js";
+import Model from "./models/model.js";
 
 chrome.extension.sendMessage({}, function(response) {
-	var readyStateCheckInterval = setInterval(function() {
+	let readyStateCheckInterval = setInterval(function() {
 		if (document.readyState === "complete") {
 			clearInterval(readyStateCheckInterval);
 
@@ -14,4 +14,5 @@ chrome.extension.sendMessage({}, function(response) {
 	}, 10);
 });
 
-model = new Model("Mooodel");
+const model = new Model("My name is Mooodel, still...");
+model.printName();
