@@ -1,13 +1,34 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
-var app = express();
-
+const app = express();
 const port = 3000;
 
-app.listen(port, function() {
-	console.log("Express app listening on port " + port);
+// app.use appears to be a standard method for defining express middleware, of which this is a lot
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (request, response) => {
+	response.send("Hello, Word!");
 });
 
-app.get('/', function(request, response) {
-	response.send("Hello, Word!");
+app.get('/quotes', (request, response) => {
+	response.send("View a list of all quotes");
+	if (request.query.year) {
+		// Send quotes with year === req.query.year
+	} else {
+		// Send all quotes
+	}
+});
+
+app.get('/quotes/:id', (request, response) => {
+	response.send(`View a quote with the id ${request.params.id}`);
+});
+
+app.post('/quotes', (request, response) => {
+	console.log(`Insert a new quote: ${request.body.quote}`);
+	response.json(request.body);
+});
+
+app.listen(port, () => {
+	console.log("Express app listening on port " + port);
 });

@@ -1,13 +1,17 @@
-var http = require('http');
+/*
+ * This is an HTTP server made using without Express, but just the vanilla node module http
+ */
 
-var port = 3000;
+const http = require('http');
 
-var requestHandler = function(request, response) {
+const port = 3000;
+
+const requestHandler = function(request, response) {
 	console.log("New request to: " + request.url);
 	response.end("Hello, World!");
 }
 
-var server = http.createServer(requestHandler);
+const server = http.createServer(requestHandler);
 server.listen(port, function() {
 	console.log("Listening on port " + port);
 });
