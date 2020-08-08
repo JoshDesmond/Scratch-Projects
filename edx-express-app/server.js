@@ -1,8 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3');
 
+// Configure Express
 const app = express();
 const port = 3000;
+
+// Configure sqlite3
+const db = new sqlite3.Database('myDatabase.db');
+
 
 // app.use appears to be a standard method for defining express middleware, of which this is a lot
 app.use(bodyParser.urlencoded({ extended: true }));
