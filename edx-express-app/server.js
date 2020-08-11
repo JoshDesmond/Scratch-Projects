@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 // Configure sqlite3
-const db = new sqlite3.Database('myDatabase.db');
+const db = new sqlite3.Database('quotes.db');
 
 
 // app.use appears to be a standard method for defining express middleware, of which this is a lot
