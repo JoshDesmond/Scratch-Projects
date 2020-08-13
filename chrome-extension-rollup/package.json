@@ -2,7 +2,6 @@
   "name": "template-extension",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "dependencies": {
     "rollup": "^2.23.0",
     "rollup-plugin-chrome-extension": "^3.3.0"
