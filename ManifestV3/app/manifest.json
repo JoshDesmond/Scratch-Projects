@@ -27,7 +27,7 @@
         "https://en.wikipedia.org/wiki/Main_Page"
       ],
       "js": [
-        "js/inject.js"
+        "js/content.js"
       ]
     }
   ],
