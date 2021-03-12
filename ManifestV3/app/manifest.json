@@ -3,7 +3,6 @@
   "version": "0.1",
   "manifest_version": 3,
   "description": "This is a template MVC extension using webpack",
-  "homepage_url": "",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
@@ -11,7 +10,7 @@
   },
   "default_locale": "en",
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.bundle.js"
   },
   "options_page": "options.html",
   "permissions": [
@@ -27,7 +26,7 @@
         "https://en.wikipedia.org/wiki/Main_Page"
       ],
       "js": [
-        "js/content.js"
+        "content.bundle.js"
       ]
     }
   ],
