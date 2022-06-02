@@ -1,0 +1,36 @@
+.stacked-container {
+  display: grid;
+  grid-template: 1fr 1fr;
+}
+
+.container {
+  grid-area: 1 / 1;
+  margin: auto;
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  padding 0;
+  background-color: gray;
+}
+
+button {
+  aspect-ratio: 1 / 1;
+  width: 100px;
+  background-color: rgb(50, 50, 50);
+  opacity: 50%;
+  grid-row: 1;
+  z-index: 1;
+}
+
+.float {
+  border: solid 5px;
+  background-color: green;
+  opacity: 80%;
+  z-index: 2;
+}
+
+.float:hover {
+  opacity: 100%;
+}
