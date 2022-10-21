@@ -1,31 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
+import { Div2Quiz } from './components/Div2Quiz';
 
 export default function App() {
 
-  const num = 21;
-
   return (
-    <View style={styles.container}> 
-      <View>
-        <Text>{num}</Text>
-      </View>
-      <View style={styles.inputRow}>
-        <TextInput style={styles.input}></TextInput>
-        <Button title="Input"></Button> 
-      </View>
+    <View style={styles.container}>
       <StatusBar style="auto" />
+      <Div2Quiz>
+      </Div2Quiz>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -33,9 +21,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
   },
-  inputRow: {
-    margin: 'auto',
-    width: '50%',
-    flexDirection: 'row',
-  }
 });
