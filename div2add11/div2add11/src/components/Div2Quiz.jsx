@@ -5,10 +5,15 @@ import { useState } from 'react';
 export function Div2Quiz() {
 
   const [inputNum, setInputNum] = useState(getRandomYYInput);
+  const [guessText, setGuessText] = useState();
   const [resultText, setResultText] = useState('');
 
   const checkAnswer = (e) => {
-    
+    if (checkValidity(inputNum, parseInt(guessText))) {
+      setResultText('Correct!');
+    } else {
+      setResultText(`Incorrect: ${div2Add11(inputNum)}`);
+    }
   }
 
   return (
@@ -16,7 +21,12 @@ export function Div2Quiz() {
       <View style={styles.questionZone}>
         <Text style={styles.promptText}>Input: {inputNum}</Text>
         <View style={styles.inputRow}>
-          <TextInput keyboardType='number-pad' style={styles.input}></TextInput>
+          <TextInput 
+            keyboardType='number-pad'
+            style={styles.input}
+            onChangeText={newText => setGuessText(newText)}
+            defaultValue={guessText}
+          />
           <View style={{margin: 3, flex: 2}}>
             <Button title="Enter" onPress={checkAnswer}></Button>
           </View>
