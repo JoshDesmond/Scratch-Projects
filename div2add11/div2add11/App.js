@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, } from 'react-native';
-import { Div2Quiz } from './components/Div2Quiz';
+import { Div2Quiz } from './src/components/Div2Quiz';
 
 export default function App() {
 

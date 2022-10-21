@@ -1,18 +1,24 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {div2Add11, checkValidity, getRandomYYInput} from '../div2logic';
+import { useState } from 'react';
 
 export function Div2Quiz() {
 
-  const num = 21;
-  const resultText = "Correct!";
+  const [inputNum, setInputNum] = useState(getRandomYYInput);
+  const [resultText, setResultText] = useState('');
+
+  const checkAnswer = (e) => {
+    
+  }
 
   return (
     <View style={styles.container}> 
       <View style={styles.questionZone}>
-        <Text style={styles.promptText}>Input: {num}</Text>
+        <Text style={styles.promptText}>Input: {inputNum}</Text>
         <View style={styles.inputRow}>
-          <TextInput style={styles.input}></TextInput>
+          <TextInput keyboardType='number-pad' style={styles.input}></TextInput>
           <View style={{margin: 3, flex: 2}}>
-            <Button title="Enter"></Button>
+            <Button title="Enter" onPress={checkAnswer}></Button>
           </View>
         </View>
         <Text style={styles.outputText}>{resultText}</Text>
