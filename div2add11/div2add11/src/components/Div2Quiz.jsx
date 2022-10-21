@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export function Div2Quiz() {
 
-  const [inputNum, setInputNum] = useState(getRandomYYInput);
+  const [inputNum, setInputNum] = useState(getRandomYYInput());
   const [guessText, setGuessText] = useState();
   const [resultText, setResultText] = useState('');
 
@@ -14,6 +14,11 @@ export function Div2Quiz() {
     } else {
       setResultText(`Incorrect: ${div2Add11(inputNum)}`);
     }
+  }
+
+  const getNextInput = () => {
+    setInputNum(getRandomYYInput());
+    setGuessText('');
   }
 
   return (
@@ -26,12 +31,16 @@ export function Div2Quiz() {
             style={styles.input}
             onChangeText={newText => setGuessText(newText)}
             defaultValue={guessText}
+            onSubmitEditing={checkAnswer}
           />
           <View style={{margin: 3, flex: 2}}>
             <Button title="Enter" onPress={checkAnswer}></Button>
           </View>
         </View>
         <Text style={styles.outputText}>{resultText}</Text>
+      </View>
+      <View style={styles.container}>
+        <Button title="Next Value" onPress={getNextInput}></Button>
       </View>
     </View>
   );
@@ -47,6 +56,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   questionZone: {
+    flex: 1,
+    justifyContent: 'center',
     margin: 20,
     borderWidth: 1,
     borderColor: 'red',

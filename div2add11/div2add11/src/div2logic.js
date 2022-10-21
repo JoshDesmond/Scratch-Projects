@@ -17,7 +17,7 @@ export function div2Add11(x) {
  * @returns {Number} A number between 0 and 99
  */
 export function getRandomYYInput() {
-    return 21;
+    return Math.floor(Math.random() * 100);
 }
 
 /**
