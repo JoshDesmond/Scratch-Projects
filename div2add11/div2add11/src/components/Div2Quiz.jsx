@@ -19,6 +19,7 @@ export function Div2Quiz() {
   const getNextInput = () => {
     setInputNum(getRandomYYInput());
     setGuessText('');
+    setResultText('');
   }
 
   return (
