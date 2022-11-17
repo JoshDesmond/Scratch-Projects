@@ -8,7 +8,6 @@
 
 import React from 'react';
 import type {Node} from 'react';
-import callAPI from './src/CallAPIController.js';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,8 +16,10 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
+  NativeModules,
+  PermissionsAndroid,
 } from 'react-native';
-import { Button } from 'react-native';
 import {
   Colors,
   DebugInstructions,
@@ -27,9 +28,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const call = () => {
-  console.log("Heyy");
-}
+// See https://reactnative.dev/docs/permissionsandroid for reference
+const requestUsagePermission = async () => {
+  return null;
+};
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -60,6 +62,14 @@ const Section = ({children, title}): Node => {
 };
 
 const App: () => Node = () => {
+  const UsageModule = NativeModules.UsageModule;
+
+  const call = () => {
+    console.log('Native:');
+    console.log(`Heyy ${UsageModule}`);
+    UsageModule.testCall('Hiya');
+  };
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
