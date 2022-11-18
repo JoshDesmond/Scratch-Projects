@@ -2,7 +2,6 @@ package com.screentime;
 
 import android.app.usage.UsageEvents;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.icu.util.Calendar;
 import android.util.Log;
 import com.facebook.react.bridge.NativeModule;
@@ -12,8 +11,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.time.Instant;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -26,8 +25,6 @@ public class UsageModule extends ReactContextBaseJavaModule {
 
     UsageModule(ReactApplicationContext context) {
         super(context);
-
-        HashMap<Integer, String> map = new HashMap<Integer, String>();
     }
 
     /**
@@ -40,14 +37,24 @@ public class UsageModule extends ReactContextBaseJavaModule {
         return "UsageModule";
     }
 
+    /**
+     * A data class that stores processed usage info for a given app
+     */
     private class AppUsageInfo {
-        Drawable appIcon;
         String appName, packageName;
         long timeInForeground;
-        int launchCount;
+        int eventCount;
 
         AppUsageInfo(String pName) {
             this.packageName=pName;
+        }
+
+        @Override
+        public String toString() {
+            return "AppUsageInfo{" +
+                    "packageName='" + packageName + '\'' +
+                    ", timeInForeground=" + timeInForeground +
+                    ", eventCount=" + eventCount + '}';
         }
     }
 
@@ -61,9 +68,14 @@ public class UsageModule extends ReactContextBaseJavaModule {
         if (eType == UsageEvents.Event.ACTIVITY_RESUMED) return true;
         if (eType == UsageEvents.Event.ACTIVITY_STOPPED) return true;
         if (eType == UsageEvents.Event.DEVICE_SHUTDOWN) return true;
+
+        if (eType == UsageEvents.Event.NONE) return false; // ?
+        return false;
+    }
+
+    private boolean isScreenInteractiveEventType(int eType) {
         if (eType == UsageEvents.Event.SCREEN_INTERACTIVE) return true;
         if (eType == UsageEvents.Event.SCREEN_NON_INTERACTIVE) return true;
-        if (eType == UsageEvents.Event.NONE) return false; // ?
         return false;
     }
 
@@ -104,38 +116,62 @@ public class UsageModule extends ReactContextBaseJavaModule {
         // Query for all events in the given time range
         UsageEvents usageEvents = usageStatsManager.queryEvents(startTime, endTime);
 
-        // Captures all move_to_foreground/background events in a array to compare with next element
-        UsageEvents.Event currentEvent;
-        List<UsageEvents.Event> allEvents = new ArrayList<>();
-        HashMap<String, AppUsageInfo> map = new HashMap<String, AppUsageInfo>();
+        // Set up variables for processing all usage events
+        UsageEvents.Event currEvent;
+        List<UsageEvents.Event> eventList = new LinkedList<UsageEvents.Event>();
+        Map<String, AppUsageInfo> usageMap = new HashMap<String, AppUsageInfo>();
+
+        // Process all usage events
         while (usageEvents.hasNextEvent()) {
-            currentEvent = new UsageEvents.Event();
-            usageEvents.getNextEvent(currentEvent);
+            // Get the event
+            currEvent = new UsageEvents.Event();
+            usageEvents.getNextEvent(currEvent);
 
-            // Get the event type and log it
-            int eType = currentEvent.getEventType();
+            // Get the event type
+            int eventType = currEvent.getEventType();
 
-            // Filter for start/pause/stop events
-            if (isRelevantEventType(eType)) {
-                // Store a list of them
-                allEvents.add(currentEvent);
+            // Filter for only the relevant start/pause/stop events
+            if (isRelevantEventType(eventType)) {
+                // Store an ordered list of them
+                eventList.add(currEvent);
 
-                Log.d(TAG, "Event Type: " + stringOfEventType(eType) );
+                Log.d(TAG, "Event Type: " + stringOfEventType(eventType) );
 
-                // Also create a map of all events indexed by packageName
-                String key = currentEvent.getPackageName();
-                if (map.get(key) == null) {
-                    map.put(key, new AppUsageInfo(key));
+                // Also populate the map of all events indexed by packageName
+                String key = currEvent.getPackageName();
+                if (usageMap.get(key) == null) {
+                    usageMap.put(key, new AppUsageInfo(key));
                 }
             }
         }
 
-        for (UsageEvents.Event e : allEvents) {
+        // Record the timestamp of the first event, in order to later calculate differences
+        Instant startingTimeStamp = Instant.ofEpochMilli(eventList.get(0).getTimeStamp());
+
+        // TODO Keep track of start events not yet matched with pause events
+
+        // Process the list and count total usage time of apps
+        for (UsageEvents.Event e : eventList) {
+            // Log some info about the event for debugging
             Log.d(TAG, "=== Next Event: ===");
             Log.d(TAG, e.getPackageName());
-            Log.d(TAG, e.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND ? "FOREGROUND" : "BACKGROUND");
-            Log.d(TAG, String.valueOf(e.getTimeStamp()));
+            Log.d(TAG, stringOfEventType(e.getEventType()));
+
+            // Calculate the amount of time since the starting event to print a timestamp for debugging
+            Instant timeStamp = Instant.ofEpochMilli(e.getTimeStamp());
+            Duration diff = Duration.between(startingTimeStamp, timeStamp);
+            Log.d(TAG, String.valueOf(diff.getSeconds()));
+
+            // Update the event account in the usageMap
+            AppUsageInfo usage = usageMap.get(e.getPackageName());
+            usage.eventCount++;
+
+            // TODO pair start/pause events and count seconds elapsed
+            // TODO Update the AppUsageInfo to update time spent
         }
+
+        // Log the map of all usage statistics
+        Log.d(TAG, usageMap.toString());
     }
 
 
@@ -154,6 +190,8 @@ public class UsageModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void testCall(String echoString) {
         getUsageStatistics(); // TEMP call other usage event query method
+
+        // TODO archive all this
 
         // Get the UsageStatsManager Object to do queries with
         ReactApplicationContext context = getReactApplicationContext();
