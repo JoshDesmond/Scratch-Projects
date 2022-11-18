@@ -13,6 +13,7 @@ import com.facebook.react.bridge.ReactMethod;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ public class UsageModule extends ReactContextBaseJavaModule {
 
     UsageModule(ReactApplicationContext context) {
         super(context);
+
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
     }
 
     /**
@@ -49,14 +52,48 @@ public class UsageModule extends ReactContextBaseJavaModule {
     }
 
     /**
+     * Checks if the given event type constant is one of the event types being tracked/considered
+     * @param eType a UsageEvents.Event constant
+     * @return True if the event is relevant
+     */
+    private boolean isRelevantEventType(int eType) {
+        if (eType == UsageEvents.Event.ACTIVITY_PAUSED) return true;
+        if (eType == UsageEvents.Event.ACTIVITY_RESUMED) return true;
+        if (eType == UsageEvents.Event.ACTIVITY_STOPPED) return true;
+        if (eType == UsageEvents.Event.DEVICE_SHUTDOWN) return true;
+        if (eType == UsageEvents.Event.SCREEN_INTERACTIVE) return true;
+        if (eType == UsageEvents.Event.SCREEN_NON_INTERACTIVE) return true;
+        if (eType == UsageEvents.Event.NONE) return false; // ?
+        return false;
+    }
+
+    /**
+     * Converts a UsageEvents.Event constant back into its string. Just for debugging purposes.
+     * @param eType A UsageEvents.Event constant
+     * @return The string of what the event constant represents
+     */
+    private String stringOfEventType(int eType) {
+        if (eType == UsageEvents.Event.ACTIVITY_PAUSED) return "ACTIVITY_PAUSED";
+        if (eType == UsageEvents.Event.ACTIVITY_RESUMED) return "ACTIVITY_RESUMED";
+        if (eType == UsageEvents.Event.ACTIVITY_STOPPED) return "ACTIVITY_STOPPED";
+        if (eType == UsageEvents.Event.DEVICE_SHUTDOWN) return "DEVICE_SHUTDOWN";
+        if (eType == UsageEvents.Event.SCREEN_INTERACTIVE) return "SCREEN_INTERACTIVE";
+        if (eType == UsageEvents.Event.SCREEN_NON_INTERACTIVE) return "SCREEN_NON_INTERACTIVE";
+        if (eType == UsageEvents.Event.NONE) return "NONE?";
+        if (eType == UsageEvents.Event.USER_INTERACTION) return "USER_INTERACTION";
+        throw new IllegalArgumentException("Unknown Event type passed to stringOfEventType, " +
+                "please update this method or filter out events before calling: " + eType);
+    }
+
+    /**
      * Method originally referencing and modified from: https://stackoverflow.com/a/45380396/4225094
      * CC BY-SA 3.0
      */
     void getUsageStatistics() {
-        // Define a date range of the last 6 hours
+        // Define a date range of the last 1 hours
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.HOUR, -6);
+        calendar.add(Calendar.HOUR, -1);
         long startTime = calendar.getTimeInMillis();
 
         // Get the UsageStatsManager Object to do queries with
@@ -74,16 +111,22 @@ public class UsageModule extends ReactContextBaseJavaModule {
         while (usageEvents.hasNextEvent()) {
             currentEvent = new UsageEvents.Event();
             usageEvents.getNextEvent(currentEvent);
-            // Filter for move_to_foreground/background events
-            if (currentEvent.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND ||
-                    currentEvent.getEventType() == UsageEvents.Event.MOVE_TO_BACKGROUND) {
+
+            // Get the event type and log it
+            int eType = currentEvent.getEventType();
+
+            // Filter for start/pause/stop events
+            if (isRelevantEventType(eType)) {
                 // Store a list of them
                 allEvents.add(currentEvent);
 
+                Log.d(TAG, "Event Type: " + stringOfEventType(eType) );
+
                 // Also create a map of all events indexed by packageName
                 String key = currentEvent.getPackageName();
-                if (map.get(key) == null)
+                if (map.get(key) == null) {
                     map.put(key, new AppUsageInfo(key));
+                }
             }
         }
 
@@ -98,7 +141,6 @@ public class UsageModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void testGranularCall(String echoString) {
-
 
         // Define a date range of the last 12 hours
         Calendar calendar = Calendar.getInstance();
