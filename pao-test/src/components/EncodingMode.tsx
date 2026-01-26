@@ -46,52 +46,52 @@ export default function EncodingMode({ paoData }: EncodingModeProps) {
 
   return (
     <div className="container mx-auto p-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-8 text-center">Encoding Mode</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center text-gray-100">Encoding Mode</h1>
       
-      <div className="bg-gray-100 p-6 rounded-lg mb-6">
-        <div className="text-sm text-gray-600 mb-2">Number to encode:</div>
-        <div className="text-5xl font-mono font-bold text-center">
+      <div className="bg-gray-800 p-6 rounded-lg mb-6 border border-gray-700">
+        <div className="text-sm text-gray-400 mb-2">Number to encode:</div>
+        <div className="text-5xl font-mono font-bold text-center text-gray-100">
           {currentNumber}
         </div>
       </div>
 
       {!showAnswer ? (
         <form onSubmit={handleSubmit} className="mb-6">
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium mb-2 text-gray-200">
             Enter your mnemonic:
           </label>
           <input
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="Type your mnemonic here..."
             autoFocus
           />
           <button
             type="submit"
-            className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
           >
             Submit
           </button>
         </form>
       ) : (
         <div className="mb-6">
-          <div className="bg-white p-6 rounded-lg border-2 border-gray-300 mb-4">
-            <div className="text-sm text-gray-600 mb-2">Correct mnemonic:</div>
-            <div className="text-xl font-semibold">{correctMnemonic}</div>
+          <div className="bg-gray-800 p-6 rounded-lg border-2 border-gray-600 mb-4">
+            <div className="text-sm text-gray-400 mb-2">Correct mnemonic:</div>
+            <div className="text-xl font-semibold text-gray-100">{correctMnemonic}</div>
           </div>
           
           <div className="flex gap-4">
             <button
               onClick={handleCorrect}
-              className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 font-semibold"
+              className="flex-1 bg-emerald-600 text-white py-3 px-4 rounded-lg hover:bg-emerald-700 font-semibold transition-colors"
             >
               Correct
             </button>
             <button
               onClick={handleIncorrect}
-              className="flex-1 bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 font-semibold"
+              className="flex-1 bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 font-semibold transition-colors"
             >
               Incorrect
             </button>
