@@ -1,0 +1,1 @@
+This is a quick one off project to do some linguistic similarly analysis of my PAO mnemonic system using word vector cosine similarity tools.

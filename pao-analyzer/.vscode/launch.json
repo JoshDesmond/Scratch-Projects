@@ -1,0 +1,13 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        
+        {
+            "name": "Run pao_similarity.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pao_similarity.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
