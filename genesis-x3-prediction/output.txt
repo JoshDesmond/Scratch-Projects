@@ -1,0 +1,87 @@
+=== Match Outcome Distributions ===
+
+  LR1 winner:
+    Joshman: 71.88%
+    Salt: 28.12%
+
+  LR1 winner:
+    Cody Schwab: 94.73%
+    Krudo: 5.27%
+
+  WSF winner:
+    Jmook: 76.29%
+    Wizzrobe: 23.71%
+
+  WSF winner:
+    Trif: 56.72%
+    Soonsay: 43.28%
+
+  LQF winner:
+    Joshman: 40.61%
+    Soonsay: 26.71%
+    Trif: 23.18%
+    Salt: 9.50%
+
+  LQF winner:
+    Cody Schwab: 84.18%
+    Wizzrobe: 8.13%
+    Jmook: 5.89%
+    Krudo: 1.79%
+
+  WF winner:
+    Jmook: 50.61%
+    Trif: 24.39%
+    Soonsay: 15.97%
+    Wizzrobe: 9.03%
+
+  LSF winner:
+    Cody Schwab: 73.54%
+    Joshman: 8.79%
+    Trif: 4.66%
+    Soonsay: 4.47%
+    Jmook: 3.88%
+    Wizzrobe: 3.09%
+    Salt: 1.06%
+    Krudo: 0.51%
+
+  LF winner:
+    Cody Schwab: 63.25%
+    Jmook: 10.92%
+    Trif: 9.95%
+    Soonsay: 7.34%
+    Joshman: 4.66%
+    Wizzrobe: 3.40%
+    Salt: 0.33%
+    Krudo: 0.14%
+
+  GF winner:
+    Cody Schwab: 52.72%
+    Jmook: 24.86%
+    Trif: 10.96%
+    Soonsay: 6.42%
+    Wizzrobe: 2.68%
+    Joshman: 2.24%
+    Salt: 0.09%
+    Krudo: 0.03%
+
+  GFR winner:
+    Cody Schwab: 57.66%
+    Jmook: 19.52%
+    Trif: 10.52%
+    Soonsay: 6.52%
+    Joshman: 2.84%
+    Wizzrobe: 2.77%
+    Salt: 0.12%
+    Krudo: 0.05%
+
+=== Champion (tournament win) ===
+
+  Cody Schwab: 44.11%
+  Jmook: 31.97%
+  Trif: 12.56%
+  Soonsay: 7.09%
+  Wizzrobe: 3.11%
+  Joshman: 1.12%
+  Salt: 0.03%
+  Krudo: 0.01%
+

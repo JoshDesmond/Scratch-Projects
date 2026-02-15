@@ -1,0 +1,31 @@
+{
+  "players": {
+    "Wizzrobe": 2779,
+    "Jmook": 2982,
+    "Trif": 2884,
+    "Soonsay": 2837,
+    "Salt": 2740,
+    "Joshman": 2903,
+    "Krudo": 2704,
+    "Cody Schwab": 3206
+  },
+  "bracket": {
+    "winners": {
+      "A": ["Wizzrobe", "Jmook"],
+      "B": ["Trif", "Soonsay"],
+      "C": ["winner_A", "winner_B"],
+      "D": ["winner_C", "winner_K"]
+    },
+    "losers": {
+      "F": ["Salt", "Joshman"],
+      "G": ["Krudo", "Cody Schwab"],
+      "H": ["loser_B", "winner_F"],
+      "I": ["loser_A", "winner_G"],
+      "J": ["winner_H", "winner_I"],
+      "K": ["loser_C", "winner_J"],
+      "L": ["winner_K", "loser_D"]
+    },
+    "grand_final": ["winner_D", "winner_L"],
+    "grand_final_reset": ["winner_D", "winner_L"]
+  }
+}
