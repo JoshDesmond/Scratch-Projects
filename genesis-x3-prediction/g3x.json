@@ -1,4 +1,6 @@
 {
+  "type": "top8_double_elimination",
+  "name": "Genesis X3 Top 8",
   "players": {
     "Wizzrobe": 2779,
     "Jmook": 2982,
@@ -27,5 +29,14 @@
     },
     "grand_final": ["winner_D", "winner_L"],
     "grand_final_reset": ["winner_D", "winner_L"]
+  },
+  "results": {
+    "G": "Cody Schwab",
+    "F": "Salt",
+    "A": "Jmook",
+    "B": "Soonsay",
+    "H": "Salt",
+    "I": "Cody Schwab",
+    "C": "Jmook"
   }
 }

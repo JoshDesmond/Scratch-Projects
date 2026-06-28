@@ -1,0 +1,269 @@
+=== Match Outcome Distributions ===
+
+--- Round of 32 ---
+
+  Match 73 (South Africa vs Canada):
+    Canada: 73.36%
+    South Africa: 26.64%
+
+  Match 74 (Germany vs Paraguay):
+    Germany: 62.40%
+    Paraguay: 37.60%
+
+  Match 75 (Netherlands vs Morocco):
+    Netherlands: 64.14%
+    Morocco: 35.86%
+
+  Match 76 (Brazil vs Japan):
+    Brazil: 64.93%
+    Japan: 35.07%
+
+  Match 77 (France vs Sweden):
+    France: 90.81%
+    Sweden: 9.19%
+
+  Match 78 (Ivory Coast vs Norway):
+    Norway: 72.91%
+    Ivory Coast: 27.09%
+
+  Match 79 (Mexico vs Ecuador):
+    Mexico: 54.45%
+    Ecuador: 45.55%
+
+  Match 80 (England vs DR Congo):
+    England: 85.48%
+    DR Congo: 14.52%
+
+  Match 81 (United States vs Bosnia and Herzegovina):
+    United States: 75.02%
+    Bosnia and Herzegovina: 24.98%
+
+  Match 82 (Belgium vs Senegal):
+    Belgium: 56.44%
+    Senegal: 43.56%
+
+  Match 83 (Portugal vs Croatia):
+    Portugal: 60.90%
+    Croatia: 39.10%
+
+  Match 84 (Spain vs Austria):
+    Spain: 84.15%
+    Austria: 15.85%
+
+  Match 85 (Switzerland vs Algeria):
+    Switzerland: 67.38%
+    Algeria: 32.62%
+
+  Match 86 (Argentina vs Cape Verde):
+    Argentina: 95.93%
+    Cape Verde: 4.07%
+
+  Match 87 (Colombia vs Ghana):
+    Colombia: 92.60%
+    Ghana: 7.40%
+
+  Match 88 (Australia vs Egypt):
+    Australia: 61.31%
+    Egypt: 38.69%
+
+--- Round of 16 ---
+
+  Match 89 (winner_74 vs winner_77):
+    France: 73.80%
+    Germany: 16.37%
+    Paraguay: 6.98%
+    Sweden: 2.86%
+
+  Match 90 (winner_73 vs winner_75):
+    Netherlands: 52.75%
+    Morocco: 25.97%
+    Canada: 18.37%
+    South Africa: 2.91%
+
+  Match 91 (winner_76 vs winner_78):
+    Brazil: 44.54%
+    Norway: 30.48%
+    Japan: 19.19%
+    Ivory Coast: 5.79%
+
+  Match 92 (winner_79 vs winner_80):
+    England: 55.16%
+    Mexico: 23.53%
+    Ecuador: 17.88%
+    DR Congo: 3.43%
+
+  Match 93 (winner_83 vs winner_84):
+    Spain: 60.61%
+    Portugal: 22.91%
+    Croatia: 11.24%
+    Austria: 5.24%
+
+  Match 94 (winner_81 vs winner_82):
+    Belgium: 37.19%
+    United States: 31.71%
+    Senegal: 26.19%
+    Bosnia and Herzegovina: 4.91%
+
+  Match 95 (winner_86 vs winner_88):
+    Argentina: 86.77%
+    Australia: 8.33%
+    Egypt: 3.71%
+    Cape Verde: 1.19%
+
+  Match 96 (winner_85 vs winner_87):
+    Colombia: 63.68%
+    Switzerland: 26.82%
+    Algeria: 8.33%
+    Ghana: 1.17%
+
+--- Quarter-finals ---
+
+  Match 97 (winner_89 vs winner_90):
+    France: 57.14%
+    Netherlands: 20.64%
+    Germany: 8.23%
+    Morocco: 7.21%
+    Canada: 3.04%
+    Paraguay: 2.71%
+    Sweden: 0.82%
+    South Africa: 0.21%
+
+  Match 98 (winner_93 vs winner_94):
+    Spain: 50.60%
+    Portugal: 16.04%
+    Belgium: 10.63%
+    Croatia: 6.76%
+    United States: 6.71%
+    Senegal: 6.26%
+    Austria: 2.59%
+    Bosnia and Herzegovina: 0.42%
+
+  Match 99 (winner_91 vs winner_92):
+    England: 33.12%
+    Brazil: 24.93%
+    Norway: 13.02%
+    Mexico: 11.22%
+    Japan: 7.91%
+    Ecuador: 7.77%
+    Ivory Coast: 1.29%
+    DR Congo: 0.73%
+
+  Match 100 (winner_95 vs winner_96):
+    Argentina: 65.05%
+    Colombia: 23.25%
+    Switzerland: 6.97%
+    Australia: 2.40%
+    Algeria: 1.34%
+    Egypt: 0.77%
+    Cape Verde: 0.15%
+    Ghana: 0.07%
+
+--- Semi-finals ---
+
+  Match 101 (winner_97 vs winner_98):
+    France: 36.47%
+    Spain: 30.93%
+    Netherlands: 9.26%
+    Portugal: 6.99%
+    Belgium: 3.32%
+    Germany: 2.93%
+    Morocco: 2.35%
+    Croatia: 2.31%
+    Senegal: 1.65%
+    United States: 1.58%
+    Paraguay: 0.70%
+    Austria: 0.67%
+    Canada: 0.60%
+    Sweden: 0.15%
+    Bosnia and Herzegovina: 0.04%
+    South Africa: 0.02%
+
+  Match 102 (winner_99 vs winner_100):
+    Argentina: 48.39%
+    England: 13.37%
+    Colombia: 12.94%
+    Brazil: 9.78%
+    Norway: 3.65%
+    Mexico: 3.33%
+    Switzerland: 2.91%
+    Japan: 2.13%
+    Ecuador: 2.05%
+    Australia: 0.66%
+    Algeria: 0.35%
+    Ivory Coast: 0.18%
+    Egypt: 0.15%
+    DR Congo: 0.09%
+    Cape Verde: 0.02%
+    Ghana: 0.01%
+
+--- Final ---
+
+  Match 104 (winner_101 vs winner_102):
+    Argentina: 30.45%
+    France: 20.97%
+    Spain: 17.71%
+    England: 5.95%
+    Colombia: 5.61%
+    Brazil: 4.24%
+    Netherlands: 3.50%
+    Portugal: 2.75%
+    Norway: 1.15%
+    Mexico: 1.11%
+    Switzerland: 0.90%
+    Belgium: 0.90%
+    Germany: 0.85%
+    Croatia: 0.69%
+    Japan: 0.64%
+    Morocco: 0.61%
+    Ecuador: 0.61%
+    Senegal: 0.37%
+    United States: 0.32%
+    Austria: 0.15%
+    Paraguay: 0.14%
+    Australia: 0.13%
+    Canada: 0.09%
+    Algeria: 0.07%
+    Ivory Coast: 0.03%
+    Sweden: 0.02%
+    Egypt: 0.02%
+    DR Congo: 0.01%
+    Bosnia and Herzegovina: 0.00%
+    Cape Verde: 0.00%
+    South Africa: 0.00%
+    Ghana: 0.00%
+
+=== Champion (tournament win) ===
+
+  Argentina: 30.45%
+  France: 20.97%
+  Spain: 17.71%
+  England: 5.95%
+  Colombia: 5.61%
+  Brazil: 4.24%
+  Netherlands: 3.50%
+  Portugal: 2.75%
+  Norway: 1.15%
+  Mexico: 1.11%
+  Switzerland: 0.90%
+  Belgium: 0.90%
+  Germany: 0.85%
+  Croatia: 0.69%
+  Japan: 0.64%
+  Morocco: 0.61%
+  Ecuador: 0.61%
+  Senegal: 0.37%
+  United States: 0.32%
+  Austria: 0.15%
+  Paraguay: 0.14%
+  Australia: 0.13%
+  Canada: 0.09%
+  Algeria: 0.07%
+  Ivory Coast: 0.03%
+  Sweden: 0.02%
+  Egypt: 0.02%
+  DR Congo: 0.01%
+  Bosnia and Herzegovina: 0.00%
+  Cape Verde: 0.00%
+  South Africa: 0.00%
+  Ghana: 0.00%
+

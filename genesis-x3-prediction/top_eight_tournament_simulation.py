@@ -80,6 +80,37 @@ def _resolve_slot(
     return {}
 
 
+def _apply_known_results(
+    state: dict[str, dict[str, float]],
+    results: dict[str, Any],
+    winners_b: dict[str, list[str]],
+    losers_b: dict[str, list[str]],
+    elo_map: dict[str, float],
+) -> None:
+    """Pre-populate state with known match results (e.g. after games are played)."""
+    for match_id, result in results.items():
+        slots = winners_b.get(match_id) or losers_b.get(match_id)
+        if not slots:
+            continue
+        if isinstance(result, dict):
+            winner_name = result.get("winner")
+            loser_name = result.get("loser")
+            if winner_name and loser_name:
+                state[f"{match_id}_winner"] = _single_player_dist(winner_name)
+                state[f"{match_id}_loser"] = _single_player_dist(loser_name)
+        else:
+            # result is winner name; loser = other player (only for matches with two direct player names)
+            winner_name = str(result)
+            if winner_name not in elo_map:
+                continue
+            other = [s for s in slots if s in elo_map and s != winner_name]
+            if len(other) != 1:
+                continue
+            loser_name = other[0]
+            state[f"{match_id}_winner"] = _single_player_dist(winner_name)
+            state[f"{match_id}_loser"] = _single_player_dist(loser_name)
+
+
 def run_simulation(
     roster: dict[str, Player],
     bracket_config: dict[str, Any],
@@ -88,6 +119,10 @@ def run_simulation(
     """
     Run the bracket simulation using probability propagation.
     Returns dict of player name -> P(winning the tournament).
+
+    Optional "results" in bracket_config: map match_id -> winner name (or
+    {"winner": "Name", "loser": "Name"} for any match). Use this to lock in
+    outcomes as games finish, then re-run the simulation.
     """
     elo_map = {name: p.elo for name, p in roster.items()}
     bracket = bracket_config.get("bracket", bracket_config)
@@ -95,6 +130,8 @@ def run_simulation(
     losers_b = bracket.get("losers", {})
 
     state: dict[str, dict[str, float]] = {}
+    results = bracket_config.get("results", {})
+    _apply_known_results(state, results, winners_b, losers_b, elo_map)
 
     def resolve(slot: str) -> dict[str, float]:
         return _resolve_slot(slot, state, bracket, elo_map)
@@ -117,14 +154,18 @@ def run_simulation(
     for mid, slots in winners_b.items():
         if mid in ("C", "D"):
             continue
-        run_match(mid, slots)
+        if mid not in results:
+            run_match(mid, slots)
 
-    state["C_winner"] = match_winner("winner_A", "winner_B")
-    state["C_loser"] = match_loser("winner_A", "winner_B")
+    if "C" not in results:
+        state["C_winner"] = match_winner("winner_A", "winner_B")
+        state["C_loser"] = match_loser("winner_A", "winner_B")
 
     # Losers bracket (F, G; then H, I; then J; then K)
     for mid, slots in losers_b.items():
         if mid == "L":
+            continue
+        if mid in results:
             continue
         if mid in ("H", "I", "J", "K"):
             state[f"{mid}_winner"] = match_winner(slots[0], slots[1])
@@ -132,11 +173,13 @@ def run_simulation(
             run_match(mid, slots)
 
     # Winners Final D: winner_C vs winner_K
-    state["D_winner"] = match_winner("winner_C", "winner_K")
-    state["D_loser"] = match_loser("winner_C", "winner_K")
+    if "D" not in results:
+        state["D_winner"] = match_winner("winner_C", "winner_K")
+        state["D_loser"] = match_loser("winner_C", "winner_K")
 
     # Losers Final L: winner_K vs loser_D
-    state["L_winner"] = match_winner("winner_K", "loser_D")
+    if "L" not in results:
+        state["L_winner"] = match_winner("winner_K", "loser_D")
 
     # Grand final: winner_C (winners bracket) vs winner_K (losers bracket)
     # Winners side needs 1 win; losers side needs 2 wins (bracket reset)

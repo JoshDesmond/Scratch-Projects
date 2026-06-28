@@ -5,11 +5,13 @@ from pathlib import Path
 
 from data_loader import load_tournament
 from players import build_roster
-from top_eight_tournament_simulation import run_simulation
+from simulation import run_simulation
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Genesis X3 Top 8 win probability simulation")
+    parser = argparse.ArgumentParser(
+        description="ELO-based tournament win probability simulation"
+    )
     parser.add_argument(
         "-v", "--verbose",
         action="store_true",
@@ -28,9 +30,9 @@ def main() -> None:
     roster = build_roster(data["players"])
     champion = run_simulation(roster, data, verbose=args.verbose)
 
-    # Main output: each player sorted by P(win tournament) (skip when verbose—already printed)
+    title = data.get("name", path.stem)
     if not args.verbose:
-        print("Tournament win probability (by player):\n")
+        print(f"{title} — tournament win probability:\n")
         for name, prob in sorted(champion.items(), key=lambda x: -x[1]):
             pct = prob * 100
             print(f"  {name}: {pct:.2f}%")
