@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Cup 2026 — Knockout Bracket</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1 id="tournament-name">World Cup 2026 Knockout Bracket</h1>
+    <p id="tournament-subtitle"></p>
+  </header>
+
+  <div class="layout">
+    <div class="bracket-wrap">
+      <div class="bracket" id="bracket"></div>
+    </div>
+    <aside class="champion-panel" id="champion-panel">
+      <h2>Champion</h2>
+      <div id="champion-list"></div>
+    </aside>
+  </div>
+
+  <script>
+    function pct(prob) {
+      return (prob * 100).toFixed(prob === 1 ? 0 : 2) + "%";
+    }
+
+    function sortedOutcomes(outcomes) {
+      return Object.entries(outcomes).sort((a, b) => b[1] - a[1]);
+    }
+
+    function buildTeamRows(match) {
+      const sorted = sortedOutcomes(match.outcomes);
+      const [topName] = sorted[0];
+      const knownTeams = match.teams.filter(t => !t.startsWith("winner_"));
+
+      if (match.decided && knownTeams.length === 2) {
+        const winner = topName;
+        return knownTeams
+          .map((name) => {
+            const isWinner = name === winner;
+            const prob = isWinner ? 1 : 0;
+            const cls = [
+              "team-row",
+              isWinner ? "winner" : "eliminated",
+            ].filter(Boolean).join(" ");
+
+            return `
+            <div class="${cls}">
+              <span class="team-name">${name}</span>
+              <span class="team-pct">${isWinner ? "W" : ""}</span>
+              <span class="prob-bar" style="width:${prob * 100}%"></span>
+            </div>`;
+          })
+          .join("");
+      }
+
+      const teams = new Set(knownTeams);
+
+      return sorted
+        .filter(([name]) => teams.size === 0 || teams.has(name) || sorted.length <= 2)
+        .slice(0, 2)
+        .map(([name, prob]) => {
+          const isFavorite = name === topName;
+          const cls = [
+            "team-row",
+            isFavorite ? "favorite" : "",
+          ].filter(Boolean).join(" ");
+
+          return `
+            <div class="${cls}">
+              <span class="team-name">${name}</span>
+              <span class="team-pct">${pct(prob)}</span>
+              <span class="prob-bar" style="width:${prob * 100}%"></span>
+            </div>`;
+        })
+        .join("");
+    }
+
+    function buildExtraOutcomes(match) {
+      const sorted = sortedOutcomes(match.outcomes);
+      const teams = new Set(match.teams.filter(t => !t.startsWith("winner_")));
+      const shown = new Set(
+        sorted
+          .filter(([name]) => teams.size === 0 || teams.has(name) || sorted.length <= 2)
+          .slice(0, 2)
+          .map(([n]) => n)
+      );
+      const extra = sorted.filter(([name]) => !shown.has(name));
+      if (extra.length === 0) return "";
+
+      const rows = extra
+        .map(([name, prob]) => `
+          <div class="extra-row">
+            <span>${name}</span>
+            <span>${pct(prob)}</span>
+          </div>`)
+        .join("");
+
+      return `
+        <div class="match-extra">
+          <div class="extra-label">All outcomes</div>
+          ${rows}
+        </div>`;
+    }
+
+    function feederIds(match) {
+      return match.teams
+        .filter((t) => t.startsWith("winner_"))
+        .map((t) => t.slice("winner_".length));
+    }
+
+    function findRootMatchId(matches) {
+      const referenced = new Set();
+      for (const match of Object.values(matches)) {
+        for (const id of feederIds(match)) referenced.add(id);
+      }
+      return Object.keys(matches).find((id) => !referenced.has(id));
+    }
+
+    function buildTree(matchId, matches) {
+      const feeders = feederIds(matches[matchId]);
+      return {
+        id: matchId,
+        children: feeders.map((id) => buildTree(id, matches)),
+      };
+    }
+
+    function leafOrderInTree(node) {
+      if (node.children.length === 0) return [node.id];
+      return node.children.flatMap(leafOrderInTree);
+    }
+
+    function assignLayout(node, leafIndex) {
+      const index = Object.fromEntries(
+        leafIndex.map((id, i) => [id, i])
+      );
+
+      function visit(n) {
+        if (n.children.length === 0) {
+          const row = index[n.id] + 2;
+          n.rowStart = row;
+          n.rowEnd = row + 1;
+          n.depth = 0;
+          return { min: index[n.id], max: index[n.id], depth: 0 };
+        }
+
+        const left = visit(n.children[0]);
+        const right = visit(n.children[1]);
+        const depth = Math.max(left.depth, right.depth) + 1;
+
+        n.rowStart = left.min + 2;
+        n.rowEnd = right.max + 3;
+        n.depth = depth;
+
+        return { min: left.min, max: right.max, depth };
+      }
+
+      visit(node);
+      return node;
+    }
+
+    function collectNodes(node, byDepth = []) {
+      if (!byDepth[node.depth]) byDepth[node.depth] = [];
+      byDepth[node.depth].push(node);
+      for (const child of node.children) collectNodes(child, byDepth);
+      return byDepth;
+    }
+
+    function buildMatchCard(id, match, isFinal, col) {
+      const cls = [
+        "match",
+        match.decided ? "decided" : "",
+        isFinal ? "final-match" : "",
+      ].filter(Boolean).join(" ");
+
+      return `
+        <div class="${cls}" data-match="${id}" data-col="${col}">
+          <div class="match-id">Match ${id}</div>
+          ${buildTeamRows(match)}
+          ${buildExtraOutcomes(match)}
+        </div>`;
+    }
+
+    function buildBracket(data) {
+      const bracket = document.getElementById("bracket");
+      const rootId = data.champion_match || findRootMatchId(data.matches);
+      const root = buildTree(rootId, data.matches);
+      const tree = assignLayout(root, leafOrderInTree(root));
+      const byDepth = collectNodes(tree).map((nodes) =>
+        nodes.sort((a, b) => a.rowStart - b.rowStart)
+      );
+      const maxDepth = byDepth.length - 1;
+
+      byDepth.forEach((nodes, depth) => {
+        const label = document.createElement("div");
+        label.className = "round-label";
+        label.textContent = data.round_names[depth] || `Round ${depth + 1}`;
+        label.style.gridColumn = depth + 1;
+        label.style.gridRow = 1;
+        bracket.appendChild(label);
+
+        for (const node of nodes) {
+          const match = data.matches[node.id];
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = buildMatchCard(
+            node.id,
+            match,
+            depth === maxDepth,
+            depth
+          );
+          const card = wrapper.firstElementChild;
+          card.style.gridColumn = depth + 1;
+          card.style.gridRow = `${node.rowStart} / ${node.rowEnd}`;
+          card.style.alignSelf = "center";
+          bracket.appendChild(card);
+        }
+      });
+    }
+
+    function buildChampionList(data) {
+      const list = document.getElementById("champion-list");
+      const sorted = sortedOutcomes(data.champion);
+      const maxProb = sorted[0][1];
+
+      sorted.forEach(([name, prob], i) => {
+        const row = document.createElement("div");
+        row.className = "champ-row" + (i < 3 ? " top-3" : "");
+        row.innerHTML = `
+          <span class="champ-rank">${i + 1}</span>
+          <span class="champ-name">${name}</span>
+          <span class="champ-pct">${pct(prob)}</span>
+          <div class="champ-bar-wrap">
+            <div class="champ-bar" style="width:${(prob / maxProb) * 100}%"></div>
+          </div>`;
+        list.appendChild(row);
+      });
+    }
+
+    fetch(`data.json?ts=${Date.now()}`, { cache: "no-store" })
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("tournament-name").textContent = data.name;
+        document.getElementById("tournament-subtitle").textContent = data.subtitle;
+        buildBracket(data);
+        buildChampionList(data);
+      })
+      .catch(err => {
+        document.getElementById("bracket").innerHTML =
+          `<p style="color:#f66;padding:2rem">Failed to load data.json: ${err.message}</p>`;
+      });
+  </script>
+</body>
+</html>

@@ -17,11 +17,12 @@ def main() -> None:
         action="store_true",
         help="Print debug match-by-match distributions",
     )
+    default_config = Path(__file__).parent / "config.json"
     parser.add_argument(
         "config",
         nargs="?",
-        default="g3x.json",
-        help="Path to tournament JSON (default: g3x.json)",
+        default=str(default_config),
+        help="Path to tournament JSON (default: config.json; also config-v2.json)",
     )
     args = parser.parse_args()
 

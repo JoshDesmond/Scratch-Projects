@@ -1,0 +1,450 @@
+{
+  "name": "2026 FIFA World Cup Knockout Stage",
+  "subtitle": "Opinionated ELO \u2014 Live Results through 5 Jul 2026",
+  "champion_match": "104",
+  "round_names": [
+    "Round of 32",
+    "Round of 16",
+    "Quarter-finals",
+    "Semi-finals",
+    "Final"
+  ],
+  "rounds": [
+    [
+      "73",
+      "74",
+      "75",
+      "76",
+      "77",
+      "78",
+      "79",
+      "80",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "88"
+    ],
+    [
+      "89",
+      "90",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95",
+      "96"
+    ],
+    [
+      "97",
+      "98",
+      "99",
+      "100"
+    ],
+    [
+      "101",
+      "102"
+    ],
+    [
+      "104"
+    ]
+  ],
+  "matches": {
+    "73": {
+      "teams": [
+        "South Africa",
+        "Canada"
+      ],
+      "label": "South Africa vs Canada",
+      "outcomes": {
+        "Canada": 1.0
+      },
+      "decided": true
+    },
+    "74": {
+      "teams": [
+        "Germany",
+        "Paraguay"
+      ],
+      "label": "Germany vs Paraguay",
+      "outcomes": {
+        "Paraguay": 1.0
+      },
+      "decided": true
+    },
+    "75": {
+      "teams": [
+        "Netherlands",
+        "Morocco"
+      ],
+      "label": "Netherlands vs Morocco",
+      "outcomes": {
+        "Morocco": 1.0
+      },
+      "decided": true
+    },
+    "76": {
+      "teams": [
+        "Brazil",
+        "Japan"
+      ],
+      "label": "Brazil vs Japan",
+      "outcomes": {
+        "Brazil": 1.0
+      },
+      "decided": true
+    },
+    "77": {
+      "teams": [
+        "France",
+        "Sweden"
+      ],
+      "label": "France vs Sweden",
+      "outcomes": {
+        "France": 1.0
+      },
+      "decided": true
+    },
+    "78": {
+      "teams": [
+        "Ivory Coast",
+        "Norway"
+      ],
+      "label": "Ivory Coast vs Norway",
+      "outcomes": {
+        "Norway": 1.0
+      },
+      "decided": true
+    },
+    "79": {
+      "teams": [
+        "Mexico",
+        "Ecuador"
+      ],
+      "label": "Mexico vs Ecuador",
+      "outcomes": {
+        "Mexico": 1.0
+      },
+      "decided": true
+    },
+    "80": {
+      "teams": [
+        "England",
+        "DR Congo"
+      ],
+      "label": "England vs DR Congo",
+      "outcomes": {
+        "England": 1.0
+      },
+      "decided": true
+    },
+    "81": {
+      "teams": [
+        "United States",
+        "Bosnia and Herzegovina"
+      ],
+      "label": "United States vs Bosnia and Herzegovina",
+      "outcomes": {
+        "United States": 1.0
+      },
+      "decided": true
+    },
+    "82": {
+      "teams": [
+        "Belgium",
+        "Senegal"
+      ],
+      "label": "Belgium vs Senegal",
+      "outcomes": {
+        "Belgium": 1.0
+      },
+      "decided": true
+    },
+    "83": {
+      "teams": [
+        "Portugal",
+        "Croatia"
+      ],
+      "label": "Portugal vs Croatia",
+      "outcomes": {
+        "Portugal": 1.0
+      },
+      "decided": true
+    },
+    "84": {
+      "teams": [
+        "Spain",
+        "Austria"
+      ],
+      "label": "Spain vs Austria",
+      "outcomes": {
+        "Spain": 1.0
+      },
+      "decided": true
+    },
+    "85": {
+      "teams": [
+        "Switzerland",
+        "Algeria"
+      ],
+      "label": "Switzerland vs Algeria",
+      "outcomes": {
+        "Switzerland": 1.0
+      },
+      "decided": true
+    },
+    "86": {
+      "teams": [
+        "Argentina",
+        "Cape Verde"
+      ],
+      "label": "Argentina vs Cape Verde",
+      "outcomes": {
+        "Argentina": 1.0
+      },
+      "decided": true
+    },
+    "87": {
+      "teams": [
+        "Colombia",
+        "Ghana"
+      ],
+      "label": "Colombia vs Ghana",
+      "outcomes": {
+        "Colombia": 1.0
+      },
+      "decided": true
+    },
+    "88": {
+      "teams": [
+        "Australia",
+        "Egypt"
+      ],
+      "label": "Australia vs Egypt",
+      "outcomes": {
+        "Egypt": 1.0
+      },
+      "decided": true
+    },
+    "89": {
+      "teams": [
+        "winner_74",
+        "winner_77"
+      ],
+      "label": "winner_74 vs winner_77",
+      "outcomes": {
+        "France": 1.0
+      },
+      "decided": true
+    },
+    "90": {
+      "teams": [
+        "winner_73",
+        "winner_75"
+      ],
+      "label": "winner_73 vs winner_75",
+      "outcomes": {
+        "Morocco": 1.0
+      },
+      "decided": true
+    },
+    "91": {
+      "teams": [
+        "winner_76",
+        "winner_78"
+      ],
+      "label": "winner_76 vs winner_78",
+      "outcomes": {
+        "Norway": 1.0
+      },
+      "decided": true
+    },
+    "92": {
+      "teams": [
+        "winner_79",
+        "winner_80"
+      ],
+      "label": "winner_79 vs winner_80",
+      "outcomes": {
+        "England": 0.6506,
+        "Mexico": 0.3494
+      },
+      "decided": false
+    },
+    "93": {
+      "teams": [
+        "winner_83",
+        "winner_84"
+      ],
+      "label": "winner_83 vs winner_84",
+      "outcomes": {
+        "Spain": 0.6863,
+        "Portugal": 0.3137
+      },
+      "decided": false
+    },
+    "94": {
+      "teams": [
+        "winner_81",
+        "winner_82"
+      ],
+      "label": "winner_81 vs winner_82",
+      "outcomes": {
+        "Belgium": 0.6347,
+        "United States": 0.3653
+      },
+      "decided": false
+    },
+    "95": {
+      "teams": [
+        "winner_86",
+        "winner_88"
+      ],
+      "label": "winner_86 vs winner_88",
+      "outcomes": {
+        "Argentina": 0.9236,
+        "Egypt": 0.0764
+      },
+      "decided": false
+    },
+    "96": {
+      "teams": [
+        "winner_85",
+        "winner_87"
+      ],
+      "label": "winner_85 vs winner_87",
+      "outcomes": {
+        "Colombia": 0.6267,
+        "Switzerland": 0.3733
+      },
+      "decided": false
+    },
+    "97": {
+      "teams": [
+        "winner_89",
+        "winner_90"
+      ],
+      "label": "winner_89 vs winner_90",
+      "outcomes": {
+        "France": 0.8092,
+        "Morocco": 0.1908
+      },
+      "decided": false
+    },
+    "98": {
+      "teams": [
+        "winner_93",
+        "winner_94"
+      ],
+      "label": "winner_93 vs winner_94",
+      "outcomes": {
+        "Spain": 0.5666,
+        "Portugal": 0.2152,
+        "Belgium": 0.1587,
+        "United States": 0.0595
+      },
+      "decided": false
+    },
+    "99": {
+      "teams": [
+        "winner_91",
+        "winner_92"
+      ],
+      "label": "winner_91 vs winner_92",
+      "outcomes": {
+        "England": 0.4207,
+        "Norway": 0.4061,
+        "Mexico": 0.1732
+      },
+      "decided": false
+    },
+    "100": {
+      "teams": [
+        "winner_95",
+        "winner_96"
+      ],
+      "label": "winner_95 vs winner_96",
+      "outcomes": {
+        "Argentina": 0.6817,
+        "Colombia": 0.2124,
+        "Switzerland": 0.091,
+        "Egypt": 0.0148
+      },
+      "decided": false
+    },
+    "101": {
+      "teams": [
+        "winner_97",
+        "winner_98"
+      ],
+      "label": "winner_97 vs winner_98",
+      "outcomes": {
+        "France": 0.4954,
+        "Spain": 0.3152,
+        "Portugal": 0.0812,
+        "Morocco": 0.0567,
+        "Belgium": 0.0412,
+        "United States": 0.0103
+      },
+      "decided": false
+    },
+    "102": {
+      "teams": [
+        "winner_99",
+        "winner_100"
+      ],
+      "label": "winner_99 vs winner_100",
+      "outcomes": {
+        "Argentina": 0.5088,
+        "England": 0.1695,
+        "Colombia": 0.1189,
+        "Norway": 0.1128,
+        "Mexico": 0.0475,
+        "Switzerland": 0.0395,
+        "Egypt": 0.003
+      },
+      "decided": false
+    },
+    "104": {
+      "teams": [
+        "winner_101",
+        "winner_102"
+      ],
+      "label": "winner_101 vs winner_102",
+      "outcomes": {
+        "Argentina": 0.297,
+        "France": 0.2885,
+        "Spain": 0.1828,
+        "England": 0.0691,
+        "Colombia": 0.0455,
+        "Portugal": 0.0325,
+        "Norway": 0.0316,
+        "Morocco": 0.0151,
+        "Mexico": 0.0132,
+        "Belgium": 0.0114,
+        "Switzerland": 0.0109,
+        "United States": 0.0019,
+        "Egypt": 0.0004
+      },
+      "decided": false
+    }
+  },
+  "champion": {
+    "Argentina": 0.297,
+    "France": 0.2885,
+    "Spain": 0.1828,
+    "England": 0.0691,
+    "Colombia": 0.0455,
+    "Portugal": 0.0325,
+    "Norway": 0.0316,
+    "Morocco": 0.0151,
+    "Mexico": 0.0132,
+    "Belgium": 0.0114,
+    "Switzerland": 0.0109,
+    "United States": 0.0019,
+    "Egypt": 0.0004
+  }
+}

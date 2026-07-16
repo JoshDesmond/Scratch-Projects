@@ -1,0 +1,452 @@
+/* World Cup 2026 Knockout Bracket Visualizer */
+
+:root {
+  --bg-deep: #0a1628;
+  --bg-panel: #111d33;
+  --bg-card: #162440;
+  --bg-card-hover: #1c2f52;
+  --border: #2a4068;
+  --border-hover: #4a7ab8;
+  --text: #e8edf5;
+  --text-muted: #8fa3c4;
+  --accent: #00c896;
+  --accent-glow: rgba(0, 200, 150, 0.35);
+  --gold: #f5c842;
+  --gold-glow: rgba(245, 200, 66, 0.4);
+  --decided: #3d8bfd;
+  --decided-glow: rgba(61, 139, 253, 0.3);
+  --bar-bg: #1a2d4d;
+  --match-h: 4.75rem;
+  --match-gap: 1.25rem;
+  --connector: #2a4068;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-deep);
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(0, 200, 150, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(61, 139, 253, 0.05) 0%, transparent 50%);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.4;
+}
+
+/* ── Header ── */
+
+header {
+  text-align: center;
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+header p {
+  margin-top: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Layout ── */
+
+.layout {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.bracket-wrap {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+/* ── Bracket grid ── */
+
+.bracket {
+  display: grid;
+  grid-template-columns: repeat(5, 13.5rem);
+  grid-template-rows: auto repeat(16, var(--match-h));
+  column-gap: 2.5rem;
+  row-gap: var(--match-gap);
+  min-width: max-content;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.round-labels {
+  display: contents;
+}
+
+.round-label {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding-bottom: 0.5rem;
+  align-self: end;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Match card ── */
+
+.match {
+  position: relative;
+  width: 13.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  cursor: default;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.match::after {
+  content: "";
+  position: absolute;
+  right: -2.5rem;
+  top: 50%;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--connector);
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.match[data-col="4"]::after {
+  display: none;
+}
+
+.match:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--border-hover);
+  z-index: 5;
+}
+
+.match:hover::after {
+  background: var(--accent);
+}
+
+.match.decided {
+  border-color: rgba(61, 139, 253, 0.45);
+}
+
+.match.decided:hover {
+  border-color: var(--decided);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 12px var(--decided-glow);
+}
+
+.match.final-match {
+  border-color: rgba(245, 200, 66, 0.5);
+  width: 15rem;
+}
+
+.match.final-match:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--gold-glow);
+}
+
+.match-id {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.match:hover .match-id {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* ── Team rows ── */
+
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0;
+  font-size: 0.78rem;
+  position: relative;
+}
+
+.team-row + .team-row {
+  margin-top: 0.1rem;
+}
+
+.team-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.team-row.favorite .team-name {
+  font-weight: 600;
+}
+
+.team-row.winner .team-name {
+  color: var(--accent);
+}
+
+.match.decided .team-row.winner .team-name {
+  color: var(--decided);
+}
+
+.team-row.eliminated .team-name,
+.team-row.eliminated .team-pct {
+  color: var(--text-muted);
+  opacity: 0.55;
+}
+
+.match:hover .team-row.winner .team-name {
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.team-pct {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 2.5rem;
+  text-align: right;
+  transition: color 0.2s ease;
+}
+
+.match:hover .team-row.favorite .team-pct {
+  color: var(--accent);
+}
+
+.prob-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent);
+  opacity: 0.35;
+  transition: opacity 0.2s ease, height 0.2s ease;
+}
+
+.match:hover .prob-bar {
+  opacity: 0.7;
+  height: 3px;
+}
+
+.match.decided .prob-bar {
+  background: var(--decided);
+}
+
+/* ── Hover tooltip (extra outcomes) ── */
+
+.match-extra {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.2s ease;
+}
+
+.match:hover .match-extra {
+  max-height: 12rem;
+  opacity: 1;
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border);
+}
+
+.extra-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+
+.extra-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  padding: 0.1rem 0;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.match:hover .extra-row:hover {
+  color: var(--text);
+}
+
+/* ── Champion panel ── */
+
+.champion-panel {
+  width: 16rem;
+  flex-shrink: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  position: sticky;
+  top: 1.5rem;
+  align-self: flex-start;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+}
+
+.champion-panel h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.champion-panel h2::before {
+  content: "🏆";
+  font-size: 1rem;
+}
+
+.champ-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.35rem;
+  margin-bottom: 0.15rem;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.champ-row:hover {
+  background: var(--bg-card-hover);
+  transform: translateX(4px);
+  box-shadow: -3px 0 0 var(--accent);
+}
+
+.champ-row.top-3 {
+  background: rgba(245, 200, 66, 0.06);
+}
+
+.champ-row.top-3:hover {
+  box-shadow: -3px 0 0 var(--gold);
+  background: rgba(245, 200, 66, 0.12);
+}
+
+.champ-rank {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  width: 1.2rem;
+  text-align: center;
+}
+
+.champ-name {
+  flex: 1;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.champ-pct {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.champ-row:hover .champ-pct {
+  color: var(--gold);
+}
+
+.champ-bar-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 0.35rem;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.champ-bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 200, 150, 0.08), transparent);
+  transition: width 0.3s ease;
+}
+
+.champ-row {
+  position: relative;
+}
+
+/* ── Scrollbar ── */
+
+.bracket-wrap::-webkit-scrollbar,
+.champion-panel::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.bracket-wrap::-webkit-scrollbar-track,
+.champion-panel::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+.bracket-wrap::-webkit-scrollbar-thumb,
+.champion-panel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.bracket-wrap::-webkit-scrollbar-thumb:hover,
+.champion-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .champion-panel {
+    width: 100%;
+    position: static;
+    max-height: none;
+  }
+}
